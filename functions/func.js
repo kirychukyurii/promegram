@@ -74,11 +74,11 @@ sendAlert = async (alert, userId) => {
   if (alert.status == "resolved") {
     start = Date.parse(alert.startsAt);
     end = Date.parse(alert.endsAt);
-    text = `✅ ${alert.Annotations.message_resolved}\n<a href="${alert.GeneratorURL}">${alert.Annotations.identifier}</a>\n${parseTime(alert.startsAt)}\nТривалість: ${getDuration(start, end)}`;
+    text = `✅ ${alert.annotations.message_resolved}\n<a href="${alert.generatorURL}">${alert.annotations.identifier}</a>\n${parseTime(alert.startsAt)}\nТривалість: ${getDuration(start, end)}`;
   } else {
     start = Date.parse(alert.startsAt);
     end = Date.now();
-    text = `🔥 ${alert.Annotations.message_firing}\n<a href="${alert.GeneratorURL}">${alert.Annotations.identifier}</a>\n${parseTime(alert.startsAt)}\n${getDuration(start, end)} тому`;
+    text = `🔥 ${alert.annotations.message_firing}\n<a href="${alert.generatorURL}">${alert.annotations.identifier}</a>\n${parseTime(alert.startsAt)}\n${getDuration(start, end)} тому`;
   }
 
   returnData = [alert.labels.alertname, alert.labels.instance];
