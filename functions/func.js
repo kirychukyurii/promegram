@@ -66,7 +66,7 @@ getDuration = (startTime, endTime) => {
     secs = Math.trunc(durationTimeraw - days * 24 * 60 * 60 - hours * 60 * 60 - mins * 60);
   }
 
-  durTime = `${days}d, ${hours}h, ${mins}m, ${secs}s`;
+  durTime = `${days} днів, ${hours} год., ${mins} хв., ${secs} с.`;
   return durTime;
 }
 
@@ -74,18 +74,18 @@ sendAlert = async (alert, userId) => {
   if (alert.status == "resolved") {
     start = Date.parse(alert.startsAt);
     end = Date.parse(alert.endsAt);
-    text = `✅ ${alert.annotations.message_resolved}\n<a href="${alert.generatorURL}">${alert.annotations.identifier}</a>\n${parseTime(alert.startsAt)}\nТривалість: ${getDuration(start, end)}`;
+    text = `✅ ${alert.annotations.message_resolved}\n<a href="${alert.generatorURL}">${alert.annotations.identifier}</a>\nТривалість: ${getDuration(start, end)}\n${parseTime(alert.startsAt)}`;
   } else {
     start = Date.parse(alert.startsAt);
     end = Date.now();
-    text = `🔥 ${alert.annotations.message_firing}\n<a href="${alert.generatorURL}">${alert.annotations.identifier}</a>\n${parseTime(alert.startsAt)}\n${getDuration(start, end)} тому`;
+    text = `🔥 ${alert.annotations.message_firing}\n<a href="${alert.generatorURL}">${alert.annotations.identifier}</a>\nПочаток: ${getDuration(start, end)} тому\n${parseTime(alert.startsAt)}`;
   }
 
   returnData = [alert.labels.alertname, alert.labels.instance];
   returnData = returnData.toString();
 
   if (typeof alertmanagerUrl != "undefined") {
-    buttText = `Set Silence for ${Math.trunc(silenceTime)}h`;
+    buttText = `🔕 ${Math.trunc(silenceTime)} год.`;
     retData = returnData;
   } else {
     buttText = "Alertmanager URL not set";
@@ -133,7 +133,7 @@ function parseTime(timeAt) {
   if (hour < 10) {
     hour = `0${hour}`;
   }
-  var date = `${day}-${month}-${year} ${hour}:${munites}`;
+  var date = `${day}/${month}/${year} ${hour}:${munites}`;
 
   return date;
 }
@@ -225,7 +225,7 @@ function simpleButton(ids, data) {
     text = "Too old message";
     dataToReturn = "nothing";
   } else {
-    text = `Set Silence for ${Math.trunc(silenceTime)}h`;
+    text = `🔕 ${Math.trunc(silenceTime)} год.`;
     dataToReturn = [
       silencedMessages[index]["alert"],
       silencedMessages[index]["host"],
