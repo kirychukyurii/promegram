@@ -96,6 +96,7 @@ sendAlert = async (alert, userId) => {
     reply_markup: JSON.stringify({
       inline_keyboard: [[{ text: buttText, callback_data: retData }]]
     }),
+    disable_web_page_preview: "True",
   };
 
   if (ifButton == true) {
