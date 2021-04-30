@@ -37,7 +37,7 @@ module.exports.checkAlerts = async () => {
     console.log(`Alerts recieved: ${allAlerts.length}`);
     for (userId of users) {
       for (const alert of allAlerts) {
-        await setTimeout(sendAlert, 3000, alert, userId);
+        setTimeout(sendAlert, 3000, alert, userId);
       }
     }
     allAlerts.length = 0;
@@ -70,7 +70,7 @@ getDuration = (startTime, endTime) => {
   return durTime;
 }
 
-sendAlert = async (alert, userId) => {
+sendAlert = (alert, userId) => {
   if (alert.status == "resolved") {
     start = Date.parse(alert.startsAt);
     end = Date.parse(alert.endsAt);
@@ -110,7 +110,6 @@ sendAlert = async (alert, userId) => {
   } else {
     bot.sendMessage(userId, text);
   }
-  return new Promise((resolve) => setTimeout(resolve, 3000));
 }
 
 function parseTime(timeAt) {
