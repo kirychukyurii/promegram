@@ -110,7 +110,7 @@ sendAlert = async (alert, userId) => {
   } else {
     bot.sendMessage(userId, text);
   }
-  return new Promise((resolve) => setTimeout(resolve, 3000));
+  return new Promise((resolve) => setTimeout(resolve, msgDelayMs));
 }
 
 function parseTime(timeAt) {
