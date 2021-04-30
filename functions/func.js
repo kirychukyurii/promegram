@@ -37,7 +37,7 @@ module.exports.checkAlerts = async () => {
     console.log(`Alerts recieved: ${allAlerts.length}`);
     for (userId of users) {
       for (const alert of allAlerts) {
-        setTimeout(sendAlert, 30000, alert, userId);
+        setTimeout(sendAlert, 3000, alert, userId);
       }
     }
     allAlerts.length = 0;
